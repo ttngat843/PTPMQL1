@@ -18,12 +18,20 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Net_Core_API1\Demo_MVC
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Net_Core_API1/Demo_MVC/Views/Home/Demo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZW1vLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Net_Core_API1/Demo_MVC/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Net_Core_API1/Demo_MVC/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Net_Core_API1/Demo_MVC/Views/Person/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Net_Core_API1/Demo_MVC/Views/Shared/Error.cshtml]

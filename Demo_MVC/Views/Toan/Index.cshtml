@@ -1,0 +1,34 @@
+@model Demo_MVC.Models.ToanModel
+
+@{
+    ViewData["Title"] = "Máy tính đơn giản";
+}
+
+<h2>Máy tính đơn giản</h2>
+
+<form asp-action="Index" method="post">
+    <div>
+        <label>Số thứ nhất:</label>
+        <input type="number" asp-for="Number1" step="any" required />
+    </div>
+    <div>
+        <label>Số thứ hai:</label>
+        <input type="number" asp-for="Number2" step="any" required />
+    </div>
+    <div>
+        <label>Chọn phép toán:</label>
+        <select asp-for="Operation">
+            <option value="Add">Cộng</option>
+            <option value="Subtract">Trừ</option>
+            <option value="Multiply">Nhân</option>
+            <option value="Divide">Chia</option>
+        </select>
+    </div>
+    <br />
+    <button type="submit">Tính</button>
+</form>
+
+@if (Model != null && !string.IsNullOrEmpty(Model.Operation))
+{
+    <h3>Kết quả: @Model.Result</h3>
+}

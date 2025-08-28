@@ -1,0 +1,26 @@
+@model Demo_MVC.Models.BMIModel
+
+@{
+    ViewData["Title"] = "Tính chỉ số BMI";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Index" method="post">
+    <div>
+        <label>Cân nặng (kg):</label>
+        <input type="number" asp-for="Weight" step="any" required />
+    </div>
+    <div>
+        <label>Chiều cao (m):</label>
+        <input type="number" asp-for="Height" step="any" required />
+    </div>
+    <br />
+    <button type="submit">Tính BMI</button>
+</form>
+
+@if (Model != null && Model.Result > 0)
+{
+    <h3>BMI: @Model.Result</h3>
+    <h3>Phân loại: @Model.Category</h3>
+}

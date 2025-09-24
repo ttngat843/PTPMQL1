@@ -1,11 +1,37 @@
-@model Demo_MVC.Models.Entities.Person
+@model IEnumerable<Demo_MVC.Models.Entities.Person>
 
-<h2>Du Lieu: @ViewBag.Message</h2>
+@{
+    ViewData["Title"] = "Index";
+}
 
-<form asp-action="Index" method="post">
-    <input asp-for="FullName" placeholder="Nhap ho va ten" />
-    <br />
-    <input asp-for="BirthYear" type="number" placeholder="Nhap nam sinh" />
-    <br />
-    <input type="submit" value="Submit" />
-</form>
+<h1>Danh sách Person</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm mới</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().FullName)</th>
+            <th>@Html.DisplayNameFor(model => model.First().BirthYear)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Address)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.FullName</td>
+            <td>@item.BirthYear</td>
+            <td>@item.Address</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PersonId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PersonId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PersonId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,19 @@
+@model Demo_MVC.Models.Entities.Person
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Xóa Person</h1>
+
+<h3>Bạn có chắc muốn xóa?</h3>
+<div>
+    <h4>@Model.FullName</h4>
+    <p>@Model.BirthYear - @Model.Address</p>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="PersonId" />
+    <button type="submit" class="btn btn-danger">Delete</button> |
+    <a asp-action="Index">Back to List</a>
+</form>

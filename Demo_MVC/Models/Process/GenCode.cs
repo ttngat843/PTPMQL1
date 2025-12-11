@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Demo_MVC.Models.Process
 {
+    [Table("GenCodes")]
     public class GenCode
     {
         [Key]

@@ -1,11 +1,14 @@
-using Demo_MVC.Data;
 using Microsoft.EntityFrameworkCore;
+using Demo_MVC.Data;
+using Demo_MVC.Models.Process; 
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
+builder.Services.AddTransient<ExcelProcess>();
 
 builder.Services.AddControllersWithViews();
 
@@ -23,9 +26,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
 app.Run();

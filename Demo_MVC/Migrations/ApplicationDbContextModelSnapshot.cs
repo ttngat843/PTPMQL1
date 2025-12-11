@@ -14,7 +14,37 @@ namespace Demo_MVC.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.8");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
+
+            modelBuilder.Entity("Demo_MVC.Models.Entities.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("BirthYear")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EmployeeCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("Employees");
+                });
 
             modelBuilder.Entity("Demo_MVC.Models.Entities.Person", b =>
                 {
@@ -34,7 +64,7 @@ namespace Demo_MVC.Migrations
 
                     b.HasKey("PersonId");
 
-                    b.ToTable("Person", (string)null);
+                    b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("Demo_MVC.Models.Process.GenCode", b =>
@@ -52,7 +82,18 @@ namespace Demo_MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GenCode", (string)null);
+                    b.ToTable("GenCodes");
+                });
+
+            modelBuilder.Entity("Demo_MVC.Models.Entities.Employee", b =>
+                {
+                    b.HasOne("Demo_MVC.Models.Entities.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
                 });
 #pragma warning restore 612, 618
         }

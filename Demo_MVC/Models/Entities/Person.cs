@@ -3,14 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Demo_MVC.Models.Entities
 {
-    [Table("Person")]
     public class Person
-    {
+    {   
         [Key]
-        public int PersonId { get; set; }   // khóa chính
+        public int PersonId { get; set; }
 
         [Required]
-        public string FullName { get; set; } = default!;
+        public string FullName { get; set; } = string.Empty;
 
         public int BirthYear { get; set; }
 

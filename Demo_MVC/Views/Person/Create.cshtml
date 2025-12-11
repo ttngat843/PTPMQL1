@@ -1,46 +1,80 @@
 @model Demo_MVC.Models.Entities.Person
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Person";
 }
-<h1>Create</h1>
 
-<h4>Person</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="PersonId" class="control-label"></label>
-                <input asp-for="PersonId" class="form-control" />
-                <span asp-validation-for="PersonId" class="text-danger"></span>
+<h2 class="mb-3">Thêm mới Person</h2>
+
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        Import dữ liệu từ Excel
+    </div>
+    <div class="card-body">
+        <form asp-action="Upload" enctype="multipart/form-data" method="post">
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label fw-bold">Chọn file Excel:</label>
+                <div class="col-sm-6">
+                    <input type="file" name="file" class="form-control" required />
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-primary w-100">Upload</button>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="text-danger">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <div>@error.ErrorMessage</div>
+                    }
+                </div>
+            }
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<!-- FORM TẠO PERSON MỚI -->
+<div class="card">
+    <div class="card-header bg-success text-white">
+        Thêm Person thủ công
+    </div>
+
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="PersonId" class="form-label"></label>
+                <input asp-for="PersonId" class="form-control" />
+                <span asp-validation-for="PersonId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="FullName" class="form-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="BirthYear" class="form-label"></label>
+                <input asp-for="BirthYear" class="form-control" />
+                <span asp-validation-for="BirthYear" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">Lưu</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+        </form>
+    </div>
 </div>
 
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

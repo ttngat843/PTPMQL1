@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Demo_MVC.Data;
 using Demo_MVC.Models.Process;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Demo_MVC.Controllers
 {
@@ -19,139 +13,65 @@ namespace Demo_MVC.Controllers
             _context = context;
         }
 
-        // GET: GenCode
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.GenCodes.ToListAsync());
+            var data = _context.GenCodes.ToList();
+            return View(data);
         }
 
-        // GET: GenCode/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var genCode = await _context.GenCodes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (genCode == null)
-            {
-                return NotFound();
-            }
-
-            return View(genCode);
-        }
-
-        // GET: GenCode/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: GenCode/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Code,Description")] GenCode genCode)
+        public IActionResult Create(GenCode model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(genCode);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.GenCodes.Add(model);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View(genCode);
+            return View(model);
         }
 
-        // GET: GenCode/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var genCode = await _context.GenCodes.FindAsync(id);
-            if (genCode == null)
-            {
-                return NotFound();
-            }
-            return View(genCode);
+            var item = _context.GenCodes.Find(id);
+            if (item == null) return NotFound();
+            return View(item);
         }
 
-        // POST: GenCode/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Code,Description")] GenCode genCode)
+        public IActionResult Edit(GenCode model)
         {
-            if (id != genCode.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(genCode);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GenCodeExists(genCode.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.GenCodes.Update(model);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View(genCode);
+            return View(model);
         }
 
-        // GET: GenCode/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var genCode = await _context.GenCodes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (genCode == null)
-            {
-                return NotFound();
-            }
-
-            return View(genCode);
+            var item = _context.GenCodes.Find(id);
+            if (item == null) return NotFound();
+            return View(item);
         }
 
-        // POST: GenCode/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var genCode = await _context.GenCodes.FindAsync(id);
-            if (genCode != null)
-            {
-                _context.GenCodes.Remove(genCode);
-            }
+            var item = _context.GenCodes.Find(id);
+            if (item == null) return NotFound();
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            _context.GenCodes.Remove(item);
+            _context.SaveChanges();
 
-        private bool GenCodeExists(int id)
-        {
-            return _context.GenCodes.Any(e => e.Id == id);
+            return RedirectToAction("Index");
         }
     }
 }
